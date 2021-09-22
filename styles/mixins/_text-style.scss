@@ -16,7 +16,6 @@
 @mixin text-style-16() {
   font-size: $font-size-16;
   line-height: $line-height-16;
-  color: $color;
   letter-spacing: $letter-spacing-16;
 }
 @mixin text-style-18() {
