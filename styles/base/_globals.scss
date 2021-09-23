@@ -32,6 +32,12 @@
 }
 
 .sm-hidden {
+  @media screen and(max-width: $md-breakpoint - 1) {
+    display: none !important;
+  }
+}
+
+.md-hidden {
   @media screen and(min-width: $md-breakpoint) and(max-width: $lg-breakpoint - 1) {
     display: none !important;
   }
