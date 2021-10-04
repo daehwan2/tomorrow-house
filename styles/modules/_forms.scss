@@ -59,16 +59,15 @@
 // NOTE INPUT
 .input-group {
   position: relative;
+
+  .form-input {
+    padding-left: 40px;
+  }
+
   .ic-search {
     @include pos-center-y;
     left: 10px;
     font-size: 20px;
     color: $secondary;
-  }
-
-  .form-input {
-    padding-right: 16px;
-    padding-left: 40px;
-    color: $tertiary;
   }
 }
