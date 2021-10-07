@@ -2,10 +2,7 @@
   $lnb-link-padding: 8px;
   $grid-margin: $sm-margin + $gutter / 2;
   overflow-x: auto;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
+  @include no-scrollbar;
 
   &-list {
     @include inline-flexbox(start);
