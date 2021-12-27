@@ -45,6 +45,10 @@
     height: 54px;
     background-color: $background;
 
+    &-list {
+      margin: 0;
+    }
+
     &-item {
       button {
         @include text-style(16);
