@@ -17,3 +17,24 @@ const closeOrderModal = () => {
 };
 
 orderModalOverlay.addEventListener('click', closeOrderModal);
+
+function toggleOrderCtaBookmark() {
+  const [icon, countSpan] = this.children;
+  const count = +countSpan.innerHTML.replaceAll(',', '');
+  let newCount = count;
+  if (this.classList.contains('is-active')) {
+    icon.classList.add('ic-bookmark');
+    icon.classList.remove('ic-bookmark-filled');
+    newCount--;
+  } else {
+    icon.classList.add('ic-bookmark-filled');
+    icon.classList.remove('ic-bookmark');
+    newCount++;
+  }
+
+  countSpan.innerHTML = newCount.toLocaleString();
+  countSpan.setAttribute('aria-label', `북마크 ${newCount.toLocaleString()}회`);
+  this.classList.toggle('is-active');
+}
+
+orderCtaBookmarkButton.addEventListener('click', toggleOrderCtaBookmark);
