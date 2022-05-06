@@ -7,10 +7,16 @@ const deleteAllButton = gnbSearchHistory.querySelector(
   '.search-history-header button'
 );
 
+const deleteButtonList =
+  gnbSearchHistoryList.querySelectorAll('.delete-button');
+
+const closeGnbSearchHistory = () => {
+  gnbSearchHistory.classList.remove('is-active');
+  window.removeEventListener('click', closeGnbSearchHistoryOnClickOutside);
+};
 const closeGnbSearchHistoryOnClickOutside = (e) => {
   if (!gnbSearch.contains(e.target)) {
-    gnbSearchHistory.classList.remove('is-active');
-    window.removeEventListener('click', closeGnbSearchHistoryOnClickOutside);
+    closeGnbSearchHistory();
   }
 };
 const openGnbSearchHistory = () => {
@@ -27,7 +33,22 @@ gnbSearchInput.addEventListener('focus', openGnbSearchHistory);
 
 const deleteAllSearchHistoryItems = () => {
   gnbSearchHistoryList.innerHTML = '';
-  gnbSearchHistory.classList.remove('is-active');
+  closeGnbSearchHistory();
 };
 
 deleteAllButton.addEventListener('click', deleteAllSearchHistoryItems);
+
+function deleteSearchHistoryitem(e) {
+  e.stopPropagation();
+  const itemToDelete = this.parentNode;
+  console.log(itemToDelete);
+  gnbSearchHistoryList.removeChild(itemToDelete);
+
+  if (gnbSearchHistoryList.children.length === 0) {
+    closeGnbSearchHistory();
+  }
+}
+
+deleteButtonList.forEach((deleteButton) =>
+  deleteButton.addEventListener('click', deleteSearchHistoryitem)
+);
