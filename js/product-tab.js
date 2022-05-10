@@ -1,5 +1,5 @@
 const productTab = document.querySelector('.product-tab');
-const productTabButtonList = document.querySelectorAll('button');
+const productTabButtonList = productTab.querySelectorAll('button');
 
 const TOP_HEADER_DESKTOP = 80 + 50 + 54;
 const TOP_HEADER_MOBILE = 50 + 40 + 40;
@@ -55,8 +55,38 @@ function detectTabPanelPosition() {
     const position = window.scrollY + panel.getBoundingClientRect().top;
     productTabPanelPositionMap[id] = position;
   });
-  console.log(productTabPanelPositionMap);
+}
+function updateActiveTabOnScroll() {
+  const scrolledAmount =
+    window.scrollY +
+    (window.innerWidth >= 768
+      ? TOP_HEADER_DESKTOP + 80
+      : TOP_HEADER_MOBILE + 8);
+
+  let newActiveTab;
+  if (scrolledAmount >= productTabPanelPositionMap['product-recommendation']) {
+    newActiveTab = productTabButtonList[4];
+  } else if (scrolledAmount >= productTabPanelPositionMap['product-shipment']) {
+    newActiveTab = productTabButtonList[3];
+  } else if (scrolledAmount >= productTabPanelPositionMap['product-inquiry']) {
+    newActiveTab = productTabButtonList[2];
+  } else if (scrolledAmount >= productTabPanelPositionMap['product-review']) {
+    newActiveTab = productTabButtonList[1];
+  } else {
+    newActiveTab = productTabButtonList[0];
+  }
+
+  if (newActiveTab) {
+    newActiveTab = newActiveTab.parentNode;
+
+    if (newActiveTab !== currentActiveTab) {
+      currentActiveTab.classList.remove('is-active');
+      newActiveTab.classList.add('is-active');
+      currentActiveTab = newActiveTab;
+    }
+  }
 }
 
 window.addEventListener('load', detectTabPanelPosition);
 window.addEventListener('resize', detectTabPanelPosition);
+window.addEventListener('scroll', updateActiveTabOnScroll);
